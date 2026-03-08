@@ -1,186 +1,357 @@
 ---
-name: dependency-troubleshooting
-description: Systematically diagnose and fix library dependency compatibility issues
+name: feature-research-brainstorm
+description: Research and brainstorm solutions for new feature implementation
 ---
 
-# Dependency Troubleshooting Workflow
+# Feature Research & Brainstorming Workflow
 
-This workflow helps developers systematically diagnose and resolve library dependency compatibility issues after major framework upgrades, dependency updates, or architecture changes.
+This workflow helps you research, analyze, and brainstorm solutions when implementing new features. Use this when you need to understand how others have solved similar problems, compare different approaches, and make informed decisions about libraries and implementation strategies.
 
 ## When to Use This Workflow
 
-- After framework upgrades (React, Next.js, Expo, etc.)
-- When dependency updates cause build failures
-- During major version bumps of key libraries
-- When encountering "module not found" or "incompatible version" errors
-- For peer dependency conflicts
+- Implementing a new feature with unknown best practices
+- Choosing between multiple libraries or frameworks
+- Designing complex functionality requiring research
+- Needing to understand industry standards and patterns
+- Comparing different architectural approaches
+- Evaluating trade-offs between solutions
 
 ## Workflow Steps
 
-### 1. Identify the Breaking Library
+### 1. Define Feature Requirements
 
-**Actions:**
-- Read error logs carefully to identify the problematic library
-- Note the specific error message patterns:
-  - "module not found" → Missing dependency
-  - "incompatible version" → Version conflict
-  - "deprecated API" → API changes
-  - "peer dependency" → Peer version mismatch
+**Clarify the Problem:**
+- What specific functionality needs to be implemented?
+- What are the core requirements and constraints?
+- What are the success criteria?
+- Are there any technical limitations or dependencies?
 
-**Commands:**
-```bash
-# Check error details in build logs
-npm run build 2>&1 | grep -i error
+**Document Context:**
+```markdown
+## Feature: [Feature Name]
 
-# Identify which library is failing
-npm list | grep [error-pattern]
+### Requirements:
+- [Requirement 1]
+- [Requirement 2]
+- [Requirement 3]
+
+### Constraints:
+- [Technical constraint 1]
+- [Performance requirement 1]
+- [Compatibility requirement 1]
+
+### Success Criteria:
+- [Measurable outcome 1]
+- [Measurable outcome 2]
 ```
 
-### 2. Analyze Current Setup
-
-**Actions:**
-- Check currently installed versions
-- Review version constraints in package files
-- Identify dependency type (direct vs transitive)
-
-**Commands:**
-```bash
-# Check current version
-npm list [library-name]
-
-# Check version constraints
-cat package.json | grep -A 5 -B 5 "[library-name]"
-
-# Check dependency tree
-npm ls [library-name]
-```
-
-### 3. Research Compatible Versions
+### 2. Research Existing Solutions
 
 **Research Strategy:**
-- Always search for "latest" documentation, not year-specific
-- Prioritize official documentation over community solutions
-- Check for official SDKs before using raw APIs
+- Search for industry best practices
+- Look for open-source implementations
+- Study documentation and tutorials
+- Review community discussions and case studies
 
 **Search Patterns:**
 ```
-"[library-name] latest upgrade guide"
-"[library-name] migration guide"
-"[library-name] [old-version] to [new-version] breaking changes"
-"[library-name] [framework-name] latest compatibility"
+"[feature] best practices"
+"[feature] implementation guide"
+"[feature] architecture patterns"
+"[feature] tutorial examples"
+"[language] [feature] libraries comparison"
 ```
 
 **Research Sources:**
-- Official documentation (always latest version)
-- GitHub CHANGELOG.md files
-- GitHub issues related to the error
-- Community discussions on compatibility
+- Official documentation and guides
+- GitHub repositories with similar implementations
+- Stack Overflow discussions and solutions
+- Blog posts and technical articles
+- Conference talks and presentations
+- Library/framework documentation
 
-**SDK Preference:**
-When integrating with external services, always:
-1. Check for official SDKs (GitHub, Stripe, AWS, etc.)
-2. Verify SDK is official/trusted (downloads, stars, maintainer)
-3. Compare SDK benefits vs raw API calls
-4. Prefer SDKs for better developer experience
+### 3. Identify Potential Approaches
 
-### 4. Identify Root Cause
+**Categorize Solutions:**
+- **Library-based**: Using existing libraries/frameworks
+- **Custom Implementation**: Building from scratch
+- **Hybrid Approach**: Combining libraries with custom code
+- **Service Integration**: Using external APIs/services
 
-**Common Root Causes:**
-- **API Deprecation**: Old methods removed or changed
-- **Architecture Changes**: New architecture incompatibility
-- **Version Conflicts**: Peer dependency mismatches
-- **Breaking Changes**: Major version updates
+**Document Each Approach:**
+```markdown
+## Approach: [Approach Name]
 
-**Documentation Sections to Review:**
-- "Breaking Changes"
-- "Migration Guide" 
-- "Upgrading from X.x"
-- "New Architecture Support"
+### Description:
+[Brief description of the approach]
 
-### 5. Evaluate Solution Confidence
+### Libraries/Tools:
+- [Library 1] - [Purpose]
+- [Library 2] - [Purpose]
 
-**Confidence Levels:**
-- **High (80%+)**: Official docs provide clear migration steps
-- **Medium (50-80%)**: Solution from GitHub issues or community
-- **Low (<50%)**: No clear solution, requires experimentation
+### Pros:
+- [Advantage 1]
+- [Advantage 2]
 
-### 6. Implement Solution
+### Cons:
+- [Disadvantage 1]
+- [Disadvantage 2]
 
-**Solution Types:**
-- **Version Upgrade**: Update to compatible version
-- **Code Changes**: Update deprecated API calls
-- **Workarounds**: Temporary fixes with documentation
-- **Dependency Overrides**: Last resort for transitive issues
+### Complexity:
+[Low/Medium/High]
 
-**Implementation Steps:**
-1. Update package.json with new versions
-2. Run `npm install` to apply changes
-3. Update deprecated code patterns
-4. Test affected functionality
+### Learning Curve:
+[Low/Medium/High]
+```
 
-### 7. Verify and Test
+### 4. Compare Libraries and Tools
 
-**Verification Steps:**
-- Run build command to check error resolution
-- Test affected functionality
-- Check for new errors introduced
-- Run test suite if available
+**Evaluation Criteria:**
+- **Functionality**: Does it meet all requirements?
+- **Performance**: How efficient is it?
+- **Maintenance**: Is it actively maintained?
+- **Community**: How large is the community?
+- **Documentation**: Quality of documentation
+- **Learning Curve**: Ease of adoption
+- **Compatibility**: Works with existing stack?
 
-### 8. Document Changes
+**Library Comparison Template:**
+```markdown
+## Library Comparison: [Feature Area]
 
-**Documentation Requirements:**
-- Add code comments explaining changes
-- Note any temporary workarounds
-- Update relevant documentation
-- Record decision rationale
+| Library | Functionality | Performance | Maintenance | Community | Docs | Learning | Compatible |
+|---------|--------------|-------------|-------------|-----------|------|----------|------------|
+| [Lib 1] | ✅✅✅ | ✅✅ | ✅✅✅ | ✅✅✅ | ✅✅✅ | ✅✅ | ✅✅✅ |
+| [Lib 2] | ✅✅ | ✅✅✅ | ✅✅ | ✅✅ | ✅✅ | ✅✅✅ | ✅✅ |
+| [Lib 3] | ✅✅✅ | ✅✅ | ✅✅✅ | ✅✅ | ✅✅ | ✅ | ✅✅ |
 
-## Key Principles
+**Legend:**
+✅✅✅ Excellent | ✅✅ Good | ✅ Fair | ❌ Poor
+```
 
-- **Research Before Implementing**: Never guess at solutions
-- **Official Documentation First**: Prefer official upgrade guides
-- **Latest Documentation Only**: Always search for "latest" versions
-- **SDK Over Raw APIs**: Use official SDKs when available
-- **Transparent Confidence**: Be honest about solution certainty
-- **One Issue at a Time**: Fix problems individually
-- **Incremental Testing**: Test each change separately
+### 5. Brainstorm Implementation Approaches
 
-## Common Troubleshooting Patterns
+**Approach Brainstorming:**
+For each identified approach, brainstorm specific implementation strategies:
 
-### Pattern 1: Deprecated API
-- **Symptoms**: "X is not a function" or "X is deprecated"
-- **Solution**: Find replacement API in upgrade guide
+**Strategy 1: [Strategy Name]**
+- **Core Idea**: [Brief description]
+- **Key Components**: [List of main components]
+- **Data Flow**: [How data moves through the system]
+- **State Management**: [How state is handled]
+- **Error Handling**: [Error management strategy]
+- **Testing Approach**: [How to test this approach]
 
-### Pattern 2: Architecture Incompatibility  
-- **Symptoms**: Framework-specific architecture errors
-- **Solution**: Check library architecture support
+**Strategy 2: [Strategy Name]**
+- **Core Idea**: [Brief description]
+- **Key Components**: [List of main components]
+- **Data Flow**: [How data moves through the system]
+- **State Management**: [How state is handled]
+- **Error Handling**: [Error management strategy]
+- **Testing Approach**: [How to test this approach]
 
-### Pattern 3: Peer Dependency Mismatch
-- **Symptoms**: "peer dependency" warnings during install
-- **Solution**: Align versions of related packages
+### 6. Evaluate Trade-offs
 
-### Pattern 4: Breaking Changes
-- **Symptoms**: Props not working, TypeScript errors
-- **Solution**: Check changelog for API changes
+**Trade-off Analysis:**
+For each approach, evaluate the pros and cons:
 
-## Example: React Navigation Upgrade
+```markdown
+## Trade-off Analysis: [Approach Name]
 
-**Problem**: "useLegacyImplementation prop not recognized"
+### Advantages:
+- **Performance**: [Specific performance benefits]
+- **Maintainability**: [Code maintenance benefits]
+- **Scalability**: [How well it scales]
+- **Developer Experience**: [Ease of development]
+- **User Experience**: [Benefits for end users]
 
-**Resolution Process:**
-1. **Identify**: `react-navigation/drawer` issue
-2. **Check Version**: Currently on v6.x
-3. **Research**: Search "react-navigation drawer v7 upgrade"
-4. **Find Docs**: React Navigation v7 upgrade guide
-5. **Root Cause**: Prop removed in v7, new default behavior
-6. **Solution**: Remove prop or use new API
-7. **Confidence**: 95% (official docs)
-8. **Implement**: Update component code
-9. **Verify**: Build succeeds
+### Disadvantages:
+- **Complexity**: [Implementation complexity]
+- **Learning Curve**: [Time to learn/adopt]
+- **Dependencies**: [Additional dependencies required]
+- **Limitations**: [Known limitations]
+- **Risks**: [Potential risks]
+
+### Mitigation Strategies:
+- [How to address disadvantages]
+- [Alternative approaches if issues arise]
+```
+
+### 7. Make Recommendation with Confidence
+
+**Confidence Assessment:**
+- **High Confidence (80-100%)**: Well-documented, widely used, proven solution
+- **Medium Confidence (50-79%)**: Good solution but some uncertainty or trade-offs
+- **Low Confidence (20-49%)**: Experimental or limited evidence
+- **Very Low Confidence (0-19%)**: High risk, requires prototyping
+
+**Recommendation Template:**
+```markdown
+## Recommended Solution
+
+**Primary Recommendation**: [Approach/Library Name]
+
+**Confidence Level**: [High/Medium/Low] ([XX]%)
+
+**Reasoning**:
+1. **Best Fit for Requirements**: [Why it meets requirements best]
+2. **Proven Track Record**: [Evidence of successful usage]
+3. **Community Support**: [Community and maintenance status]
+4. **Implementation Feasibility**: [Ease of implementation]
+5. **Future-Proofing**: [Long-term viability]
+
+**Alternative Options**:
+1. **Alternative 1**: [Name] - [Brief reason to consider]
+2. **Alternative 2**: [Name] - [Brief reason to consider]
+
+**Implementation Strategy**:
+1. **Phase 1**: [Initial implementation steps]
+2. **Phase 2**: [Additional features]
+3. **Phase 3**: [Optimization and refinement]
+
+**Risk Mitigation**:
+- [Risk 1]: [Mitigation strategy]
+- [Risk 2]: [Mitigation strategy]
+```
+
+### 8. Create Implementation Plan
+
+**Detailed Implementation Steps:**
+```markdown
+## Implementation Plan
+
+### Phase 1: Foundation ([Timeframe])
+- [ ] [Specific task 1]
+- [ ] [Specific task 2]
+- [ ] [Specific task 3]
+
+### Phase 2: Core Features ([Timeframe])
+- [ ] [Specific task 1]
+- [ ] [Specific task 2]
+- [ ] [Specific task 3]
+
+### Phase 3: Integration & Testing ([Timeframe])
+- [ ] [Specific task 1]
+- [ ] [Specific task 2]
+- [ ] [Specific task 3]
+
+### Dependencies:
+- [Dependency 1]: [Details]
+- [Dependency 2]: [Details]
+
+### Success Metrics:
+- [Metric 1]: [Target]
+- [Metric 2]: [Target]
+```
 
 ## Best Practices
 
-- **Document Decisions**: Record why specific solutions were chosen
-- **Test Thoroughly**: Verify fixes don't break other functionality
-- **Plan Rollbacks**: Know how to revert if needed
-- **Communicate Clearly**: Explain changes to team members
-- **Monitor Dependencies**: Keep track of upcoming major releases
+### Research Quality
+- **Multiple Sources**: Cross-reference information from different sources
+- **Recent Information**: Prioritize recent documentation and discussions
+- **Community Validation**: Look for community adoption and feedback
+- **Official Sources**: Always check official documentation first
+
+### Evaluation Criteria
+- **Requirements Fit**: How well does it solve the specific problem?
+- **Future Viability**: Will this solution still be relevant in 2-3 years?
+- **Team Skills**: Does the team have the skills to implement and maintain?
+- **Project Context**: How does it fit with existing architecture?
+
+### Decision Making
+- **Transparent Trade-offs**: Clearly document pros and cons
+- **Confidence Levels**: Be honest about uncertainty
+- **Risk Assessment**: Identify and mitigate potential risks
+- **Alternative Plans**: Have backup options ready
+
+## Example: Real-time Chat Feature
+
+**Scenario**: Implement real-time chat functionality in a web application
+
+### Step 1: Requirements
+```markdown
+## Feature: Real-time Chat
+
+### Requirements:
+- Real-time message delivery
+- User presence indicators
+- Message history
+- Typing indicators
+- File sharing support
+
+### Constraints:
+- Must scale to 1000+ concurrent users
+- <100ms message latency
+- Mobile-friendly
+- Works with existing React app
+
+### Success Criteria:
+- Messages deliver in <100ms
+- 99.9% uptime
+- No message loss
+- Smooth UX on mobile
+```
+
+### Step 2: Research Results
+**Libraries Found:**
+- Socket.IO (WebSocket-based)
+- Pusher (managed service)
+- Ably (managed service)
+- Firebase Realtime Database
+- Custom WebSocket implementation
+
+### Step 3: Library Comparison
+| Library | Performance | Scalability | Cost | Maintenance | Learning |
+|---------|-------------|-------------|------|-------------|----------|
+| Socket.IO | ✅✅✅ | ✅✅ | ✅✅✅ | ✅✅✅ | ✅✅ |
+| Pusher | ✅✅✅ | ✅✅✅ | ✅✅ | ✅✅✅ | ✅✅✅ |
+| Ably | ✅✅✅ | ✅✅✅ | ✅✅ | ✅✅✅ | ✅✅✅ |
+| Firebase | ✅✅ | ✅✅✅ | ✅✅ | ✅✅✅ | ✅✅✅ |
+| Custom | ✅✅ | ✅ | ✅✅✅ | ✅ | ❌ |
+
+### Step 4: Recommendation
+```markdown
+## Recommended Solution
+
+**Primary Recommendation**: Socket.IO
+
+**Confidence Level**: High (85%)
+
+**Reasoning**:
+1. **Best Performance**: Direct WebSocket control, <50ms latency
+2. **Cost Effective**: No ongoing service costs
+3. **Full Control**: Custom implementation possible
+4. **Large Community**: Well-documented, many examples
+5. **React Integration**: Excellent React library support
+
+**Alternative**: Pusher
+- Use if development time is critical
+- Managed service reduces operational burden
+- Higher cost but faster implementation
+
+**Implementation Strategy**:
+1. Phase 1: Basic Socket.IO setup with message sending
+2. Phase 2: Add presence indicators and typing status
+3. Phase 3: Implement file sharing and message history
+```
+
+## Usage Guidelines
+
+### When to Use This Workflow
+- **Complex Features**: Features requiring significant research
+- **Technology Decisions**: Choosing between libraries/frameworks
+- **Architecture Design**: Designing system architecture
+- **Proof of Concepts**: Evaluating feasibility of approaches
+
+### Expected Outcomes
+- **Informed Decisions**: Evidence-based technology choices
+- **Reduced Risk**: Identified and mitigated potential issues
+- **Clear Roadmap**: Detailed implementation plan
+- **Team Alignment**: Shared understanding of approach
+
+### Success Indicators
+- Clear requirements documented
+- Multiple viable approaches identified
+- Trade-offs analyzed and documented
+- Recommendation with confidence level
+- Actionable implementation plan
