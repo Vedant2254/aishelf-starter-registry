@@ -5,7 +5,7 @@ description: Analyzes code and configurations for security vulnerabilities and b
 
 # Security Audit Skill
 
-This skill specializes in identifying security vulnerabilities, access control issues, and security anti-patterns in code and configuration files.
+This skill specializes in identifying security vulnerabilities, access control issues, and security anti-patterns in code and all configuration files.
 
 ## Capabilities
 
